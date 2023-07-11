@@ -1,2 +1,2 @@
 # Сервер приложения по поиску фильмов
-## Домен: https://domain.nomoreparties.site
+## Домен: https://film.nomoredomains.work
