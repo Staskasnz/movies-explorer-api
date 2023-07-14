@@ -4,15 +4,32 @@ const ForbiddenError = require('../errors/forbidden-error');
 const Movie = require('../models/movie');
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({}).sort({ createdAt: -1 })
+  const userId = req.user._id;
+  Movie.find({ owner: userId }).sort({ createdAt: -1 })
     .then((movies) => { res.send(movies); })
     .catch(next);
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const { name, link } = req.body;
+  const {
+    country, director, duration, year, description,
+    image, trailerLink, nameRU, nameEN, thumbnail, movieId,
+  } = req.body;
   const owner = req.user._id;
-  Movie.create({ name, link, owner })
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+    owner,
+  })
     .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {

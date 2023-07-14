@@ -1,10 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
-
-const urlValidator = { // обьект повторяющейса валидации
-  validator: validator.isURL,
-  message: 'Invalid link URL',
-};
 
 const moviechema = new mongoose.Schema({
   ccountry: String, // использую сокращенную запись, required по умолчанию true
@@ -12,21 +6,9 @@ const moviechema = new mongoose.Schema({
   duration: Number,
   year: String,
   description: String,
-  image: {
-    type: String,
-    required: true,
-    validate: urlValidator,
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-    validate: urlValidator,
-  },
-  trailerLink: {
-    type: String,
-    required: true,
-    validate: urlValidator,
-  },
+  image: String,
+  thumbnail: String,
+  trailerLink: String,
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
