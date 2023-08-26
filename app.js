@@ -14,12 +14,17 @@ const { DB_ADDRESS } = require('./config');
 const { validateSignup, validateSignin } = require('./validation/validation');
 const limiter = require('./ratelimiter/ratelimiterconfig');
 
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
 const app = express();
 console.log(DB_ADDRESS);
 app.use(limiter);
 app.use(helmet());
-app.use(cors());
+app.use(cors(
+  {
+  // origin: 'http://localhost:3000/', //  адрес  фронтенд-сервера
+  // credentials: true, // Разрешение отправки куки и заголовков авторизации
+  },
+));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -13,7 +13,7 @@ module.exports.getMovies = (req, res, next) => {
 module.exports.createMovie = (req, res, next) => {
   const {
     country, director, duration, year, description,
-    image, trailerLink, nameRU, nameEN, thumbnail, movieId,
+    image, trailerLink, nameRU, nameEN, movieId,
   } = req.body;
   const owner = req.user._id;
   Movie.create({
@@ -26,7 +26,6 @@ module.exports.createMovie = (req, res, next) => {
     trailerLink,
     nameRU,
     nameEN,
-    thumbnail,
     movieId,
     owner,
   })
@@ -42,7 +41,6 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.deleteMovie = (req, res, next) => {
   const userId = req.user._id;
-
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
@@ -55,7 +53,7 @@ module.exports.deleteMovie = (req, res, next) => {
       }
 
       // Пользователь является владельцем карточки, можно выполнить удаление
-      return movie.findByIdAndRemove(req.params.movieId)
+      return Movie.findByIdAndRemove(req.params.movieId)
         .then(() => res.send(movie))
         .catch(next);
     })

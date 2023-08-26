@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const urlRegex = require('../regex/url-regex');
+// const urlRegex = require('../regex/url-regex');
 const idRegex = require('../regex/id-regex');
 
 const validateSignup = celebrate({
@@ -27,16 +27,15 @@ const validateUpdateUser = celebrate({
 const validateCreateMovie = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
+    description: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
-    year: Joi.string().required(),
-    description: Joi.string().required(),
-    image: Joi.string().required().pattern(urlRegex),
-    trailerLink: Joi.string().required().pattern(urlRegex),
-    nameRU: Joi.string().required(),
-    nameEN: Joi.string().required(),
-    thumbnail: Joi.string().required().pattern(urlRegex),
     movieId: Joi.number().required(),
+    image: Joi.string().required().uri(),
+    nameEN: Joi.string().required(),
+    nameRU: Joi.string().required(),
+    trailerLink: Joi.string().required().uri(),
+    year: Joi.string().required(),
   }),
 });
 
